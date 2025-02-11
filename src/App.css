@@ -1,38 +1,144 @@
-.App {
-  text-align: center;
+:root {
+  --text-color: #ffffff; /* Midnight Blue */
+  --secondary-color: #e11d48; /* Reddish Pink */
+
+  --btn-color: #c2185b;
+  --hover-color: #f068a5;
+  --pink-color: #eccbcb;
+  --green-color: #afc1b9;
+  --green-color: #bcdcce;
+  --dark-green-color: #263238;
+  --yellow-color: #ebd65c;
+  --yellow-color: #ebd65c;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.main-container {
+  min-width: 100vw;
   min-height: 100vh;
+  background: var(--primary-color);
+  color: var(--text-color);
   display: flex;
   flex-direction: column;
+  background: url("../assests/toa-heftiba-lNOiiPqOqjk-unsplash.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+.flex {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-between;
+}
+
+.nav-bar {
+  width: 100%;
+  padding: 20px 100px;
+  background-color: #7ac0be;
+  /* background: rgba(255, 255, 255, 0.032); Transparent White */
+  backdrop-filter: blur(5px); /* Blurred Glass Effect */
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.nav-bar .title {
+  font-size: 32px;
+  font-weight: 600;
+}
+.nav-cluster {
+  width: 50%;
+  justify-content: space-evenly;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nav-cluster a {
+  padding: 8px 15px;
+  color: var(--text-color);
+  border-radius: 5px;
+  text-decoration: none;
+  position: relative;
 }
+
+.nav-cluster a::after {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: 0px;
+  width: 0px;
+  padding: 0px;
+  background-color: var(--text-color);
+  transition: all 0.3s ease;
+}
+.nav-cluster a:hover::after {
+  width: 100%;
+  padding: 1px;
+  border-radius: 50%;
+}
+
+.main-body {
+  width: 100vw;
+  height: 100vh;
+  flex: 1;
+  padding: 20px;
+  color: #666;
+}
+
+.main-body .content {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  transform: translate(0%, -50%);
+}
+
+.content .content-text {
+  font-size: 24px;
+}
+.content .content-text span {
+  font-size: 16px;
+}
+
+.main-body a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 25px;
+  border-radius: 5px;
+  color: white;
+  margin-top: 15px;
+  background-color: #7ac0be;
+}
+
+.about-main-body {
+  background-color: #f1f1f1;
+  color: #666;
+  min-height: 100vh;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  text-align: justify;
+}
+
+.about-main-body h3 {
+  margin-bottom: 15px;
+  text-decoration: underline solid #444 1px;
+}
+
+.why span {
+  font-weight: 600;
+  display:inline-block;
+  margin-top:10px;
+}
+
+.contact span{
+  color:#f068a5;
+
+}
+.contact span:nth-child(n+2):nth-child(-n+4){
+  margin-right:10px;
+}
+
+
