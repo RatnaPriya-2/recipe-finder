@@ -6,14 +6,14 @@ const Nav = () => {
     <>
       <div className="nav-bar flex">
         <p className="title">Recipe-Finder</p>
-        <div className="nav-cluster flex">
+        <div className="nav-cluster">
           <Link to="/">
             <span>Home</span>
           </Link>
           <Link to="/about">
             <span>About</span>
           </Link>
-          <Link to="/">
+          <Link to="/recipes">
             <span>Recipes</span>
           </Link>
           <Link to="/">
