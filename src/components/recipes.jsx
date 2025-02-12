@@ -3,8 +3,22 @@ import RecipeCard from "./RecipeCard";
 
 const Recipes = () => {
   const [inputQuery, setInputQuery] = useState("");
-  const [favorite, setFavorite] = useState([]);
+  const [favoriteToLs, setFavoriteToLs] = useState([]);
   const [allMeals, setAllMeals] = useState([]);
+  const [basicMeals, setBasicMeals] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+ 
+
+  useEffect(() => {
+    const getInitialData = async () => {
+      let url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputQuery}`;
+      let response = await fetch(url);
+      let data = await response.json();
+      setBasicMeals(data.meals);
+    };
+    getInitialData();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,13 +37,14 @@ const Recipes = () => {
     };
     fetchData();
   }, []);
-  // console.log(JSON.stringify(allMeals,null,2));
 
-  let filteredMealsByName = allMeals.filter(
-    (meal) =>
-      meal &&
-      meal.strMeal.toLowerCase().includes(inputQuery.trim().toLowerCase())
-  );
+  let filteredMealsByName =
+    inputQuery !== "" &&
+    allMeals.filter(
+      (meal) =>
+        meal &&
+        meal.strMeal.toLowerCase().includes(inputQuery.trim().toLowerCase())
+    );
   let filteredMealsByCuisine = allMeals.filter(
     (meal) =>
       meal &&
@@ -74,19 +89,34 @@ const Recipes = () => {
           </div>
         </div>
         <div className="recipe-container">
-          {(filteredMealsByCuisine.length > 0
-            ? filteredMealsByCuisine
-            : filteredMealsByName
-          ).map((recipe, index) => {
-            return (
-              <RecipeCard
-                key={index}
-                newRecipe={recipe}
-                favorite={favorite}
-                setFavorite={setFavorite}
-              />
-            );
-          })}
+          {inputQuery === ""
+            ? basicMeals.map((recipe, index) => (
+                <RecipeCard
+                  key={index}
+                  newRecipe={recipe}
+                  favoriteToLs={favoriteToLs}
+                  setFavoriteToLs={setFavoriteToLs}
+                  isFavorite={favoriteToLs.some(
+                    (item) => item.idMeal === recipe.idMeal
+                  )}
+                  setIsFavorite={setIsFavorite}
+                />
+              ))
+            : (filteredMealsByCuisine.length > 0
+                ? filteredMealsByCuisine
+                : filteredMealsByName || []
+              ).map((recipe, index) => (
+                <RecipeCard
+                  key={index}
+                  newRecipe={recipe}
+                  favoriteToLs={favoriteToLs}
+                  setFavoriteToLs={setFavoriteToLs}
+                  isFavorite={favoriteToLs.some(
+                    (item) => item.idMeal === recipe.idMeal
+                  )}
+                  setIsFavorite={setIsFavorite}
+                />
+              ))}
         </div>
       </div>
     </>

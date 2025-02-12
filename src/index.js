@@ -8,8 +8,8 @@ import App from "./App";
 import About from "./components/About";
 import Hero from "./components/Hero";
 import Recipes from "./components/Recipes";
-
-
+import Favorites from "./components/Favorites";
+import RecipeDetails from "./components/RecipeDetails";
 
 const router = createBrowserRouter(
   [
@@ -26,8 +26,16 @@ const router = createBrowserRouter(
           element: <About />,
         },
         {
-          path: "/recipes", // About Page
+          path: "/recipes", // recipes Page
           element: <Recipes />,
+        },
+        {
+          path: "/favorites", // favorites Page
+          element: <Favorites />,
+        },
+        {
+          path: "/recipe-details", // recipe-details Page
+          element: <RecipeDetails />,
         },
       ],
     },

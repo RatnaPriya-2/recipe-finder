@@ -1,9 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import WatchVideo from "./WatchVideo";
+import { Link, useNavigate } from "react-router-dom";
 
-const RecipeCard = ({ newRecipe, favorite, setFavorite }) => {
+const RecipeCard = ({
+  newRecipe,
+  favoriteToLs,
+  setFavoriteToLs,
+  isFavorite,
+  setIsFavorite,
+}) => {
   const [videoUrl, setVideoUrl] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleRecipeDetails = () => {
+    navigate("/recipe-details", { state: newRecipe });
+  };
 
   const handleWatchRecipe = () => {
     setVideoUrl(newRecipe.strYoutube);
@@ -11,10 +24,11 @@ const RecipeCard = ({ newRecipe, favorite, setFavorite }) => {
   };
 
   const handleFavorite = () => {
-    setFavorite((prev) => {
+    setFavoriteToLs((prev) => {
       if (prev.some((recipe) => recipe.idMeal === newRecipe.idMeal)) {
         return prev;
       }
+
       const updatedFavorites = [...prev, newRecipe];
       localStorage.setItem("favorite", JSON.stringify(updatedFavorites));
       return updatedFavorites;
@@ -38,7 +52,10 @@ const RecipeCard = ({ newRecipe, favorite, setFavorite }) => {
             <div className="name-favorite-cluster flex">
               <p className="recipe-name">{newRecipe.strMeal}</p>
               <div className="fav-icon" onClick={handleFavorite}>
-                <i title="Add to favorites" className="fa-solid fa-heart"></i>
+                <i
+                  title="Add to favorites"
+                  className={`fa-solid fa-heart ${isFavorite ? "pink" : ""}`}
+                ></i>
               </div>
             </div>
             <p className="cuisine">
@@ -46,7 +63,11 @@ const RecipeCard = ({ newRecipe, favorite, setFavorite }) => {
             </p>
           </div>
           <div className="btn-cluster ">
-            <button className="get-recipe">Get Recipe</button>
+            <button className="get-recipe" onClick={handleRecipeDetails}>
+              {/* <Link to="/recipe-details">Get Recipe</Link> */}
+              Get Recipe
+            </button>
+
             <button onClick={handleWatchRecipe} className="watch-recipe">
               Watch Recipe
             </button>
