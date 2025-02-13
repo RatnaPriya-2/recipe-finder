@@ -3,12 +3,11 @@ import RecipeCard from "./RecipeCard";
 
 const Recipes = () => {
   const [inputQuery, setInputQuery] = useState("");
-  const [favoriteToLs, setFavoriteToLs] = useState([]);
+  const [favoriteToLs, setFavoriteToLs] = useState(
+    JSON.parse(localStorage.getItem("favoriteToLs")) || []
+  );
   const [allMeals, setAllMeals] = useState([]);
   const [basicMeals, setBasicMeals] = useState([]);
-  const [isFavorite, setIsFavorite] = useState(false);
-
- 
 
   useEffect(() => {
     const getInitialData = async () => {
@@ -38,40 +37,31 @@ const Recipes = () => {
     fetchData();
   }, []);
 
-  let filteredMealsByName =
-    inputQuery !== "" &&
-    allMeals.filter(
-      (meal) =>
-        meal &&
-        meal.strMeal.toLowerCase().includes(inputQuery.trim().toLowerCase())
-    );
-  let filteredMealsByCuisine = allMeals.filter(
-    (meal) =>
-      meal &&
-      meal.strArea.toLowerCase().includes(inputQuery.trim().toLowerCase())
-  );
+  const handleFavoriteToggle = (recipe) => {
+    setFavoriteToLs((prev) => {
+      const isFavorite = prev.some((fav) => fav.idMeal === recipe.idMeal);
 
-  if (!allMeals) {
-    return (
-      <div className="recipes-main-body">
-        <div className="search-cluster">
-          <p>Search recipes by name, ingredient, or cuisine...</p>
-          <div className="search-block">
-            <input
-              type="text"
-              onChange={(e) => setInputQuery(e.target.value)}
-              placeholder="Search for recipes..."
-              autoComplete="off"
-            />
-            <i className="fa-solid fa-magnifying-glass"></i>
-          </div>
-        </div>
-        <p className="error-message">
-          No recipes found. Try a different search!
-        </p>
-      </div>
-    );
-  }
+      const updatedFavorites = isFavorite
+        ? prev.filter((fav) => fav.idMeal !== recipe.idMeal)
+        : [...prev, recipe];
+
+      localStorage.setItem("favoriteToLs", JSON.stringify(updatedFavorites));
+
+      return updatedFavorites;
+    });
+  };
+
+  const isFavorite = (recipe) =>
+    favoriteToLs.some((fav) => fav.idMeal === recipe.idMeal);
+
+  let filteredMealsByName =
+    allMeals.filter((meal) =>
+      meal.strMeal.toLowerCase().includes(inputQuery.trim().toLowerCase())
+    ) || [];
+  let filteredMealsByCuisine =
+    allMeals.filter((meal) =>
+      meal.strArea.toLowerCase().includes(inputQuery.trim().toLowerCase())
+    ) || [];
 
   return (
     <>
@@ -89,34 +79,19 @@ const Recipes = () => {
           </div>
         </div>
         <div className="recipe-container">
-          {inputQuery === ""
-            ? basicMeals.map((recipe, index) => (
-                <RecipeCard
-                  key={index}
-                  newRecipe={recipe}
-                  favoriteToLs={favoriteToLs}
-                  setFavoriteToLs={setFavoriteToLs}
-                  isFavorite={favoriteToLs.some(
-                    (item) => item.idMeal === recipe.idMeal
-                  )}
-                  setIsFavorite={setIsFavorite}
-                />
-              ))
-            : (filteredMealsByCuisine.length > 0
-                ? filteredMealsByCuisine
-                : filteredMealsByName || []
-              ).map((recipe, index) => (
-                <RecipeCard
-                  key={index}
-                  newRecipe={recipe}
-                  favoriteToLs={favoriteToLs}
-                  setFavoriteToLs={setFavoriteToLs}
-                  isFavorite={favoriteToLs.some(
-                    (item) => item.idMeal === recipe.idMeal
-                  )}
-                  setIsFavorite={setIsFavorite}
-                />
-              ))}
+          {(inputQuery === ""
+            ? basicMeals
+            : filteredMealsByCuisine.length > 0
+            ? filteredMealsByCuisine
+            : filteredMealsByName
+          )?.map((recipe) => (
+            <RecipeCard
+              key={recipe.idMeal}
+              newRecipe={recipe}
+              isFavorite={isFavorite(recipe)}
+              onToggleFavorite={() => handleFavoriteToggle(recipe)}
+            />
+          ))}
         </div>
       </div>
     </>

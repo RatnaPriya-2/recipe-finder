@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const RecipeDetails = () => {
   const location = useLocation();
@@ -17,7 +17,7 @@ const RecipeDetails = () => {
   return (
     <div className="recipe-details-container">
       <button className="back-btn" onClick={() => navigate(-1)}>
-        <i class="fa-solid fa-arrow-left-long"></i> Back
+        <i className="fa-solid fa-arrow-left-long"></i> Back
       </button>
       <p className="recipe-details-title">{newRecipe.strMeal}</p>
 

@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from "react";
 import WatchVideo from "./WatchVideo";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const RecipeCard = ({
-  newRecipe,
-  favoriteToLs,
-  setFavoriteToLs,
-  isFavorite,
-  setIsFavorite,
-}) => {
+const RecipeCard = ({ newRecipe, isFavorite, onToggleFavorite }) => {
   const [videoUrl, setVideoUrl] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
@@ -21,18 +15,6 @@ const RecipeCard = ({
   const handleWatchRecipe = () => {
     setVideoUrl(newRecipe.strYoutube);
     setIsOpen(!isOpen);
-  };
-
-  const handleFavorite = () => {
-    setFavoriteToLs((prev) => {
-      if (prev.some((recipe) => recipe.idMeal === newRecipe.idMeal)) {
-        return prev;
-      }
-
-      const updatedFavorites = [...prev, newRecipe];
-      localStorage.setItem("favorite", JSON.stringify(updatedFavorites));
-      return updatedFavorites;
-    });
   };
 
   return (
@@ -51,7 +33,7 @@ const RecipeCard = ({
           <div className="content-block">
             <div className="name-favorite-cluster flex">
               <p className="recipe-name">{newRecipe.strMeal}</p>
-              <div className="fav-icon" onClick={handleFavorite}>
+              <div className="fav-icon" onClick={onToggleFavorite}>
                 <i
                   title="Add to favorites"
                   className={`fa-solid fa-heart ${isFavorite ? "pink" : ""}`}
@@ -64,7 +46,6 @@ const RecipeCard = ({
           </div>
           <div className="btn-cluster ">
             <button className="get-recipe" onClick={handleRecipeDetails}>
-              {/* <Link to="/recipe-details">Get Recipe</Link> */}
               Get Recipe
             </button>
 

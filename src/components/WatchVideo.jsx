@@ -12,7 +12,7 @@ const WatchVideo = ({ videoUrl, setVideoUrl, isOpen ,setIsOpen}) => {
           setVideoUrl("")}}>
           ✖
         </button>
-        <iframe
+        <iframe title="Watch-recipe"
           src={`https://www.youtube.com/embed/${videoId}`}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
