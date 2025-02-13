@@ -7,7 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import App from "./App";
 import About from "./components/About";
 import Hero from "./components/Hero";
-import Recipes from "./components/Recipes";
+import Recipes from "./components/recipes";
 import Favorites from "./components/Favorites";
 import RecipeDetails from "./components/RecipeDetails";
 
