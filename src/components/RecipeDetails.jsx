@@ -42,7 +42,7 @@ const RecipeDetails = () => {
           {newRecipe.strInstructions
             .replace(/STEP \d+ [A-Z\s]*?:?/g, "") // Remove "STEP X ..." text
             .trim()
-            .split(/\.\s*|\n+/) // Split at period+space or newlines
+            .split(/\.\s+/) // Split at period followed by space
             .filter((sentence) => sentence.trim() !== "") // Remove empty strings
             .map((sentence, index) => (
               <li key={index}>{sentence.trim() + "."}</li>

@@ -79,19 +79,25 @@ const Recipes = () => {
           </div>
         </div>
         <div className="recipe-container">
-          {(inputQuery === ""
-            ? basicMeals
-            : filteredMealsByCuisine.length > 0
-            ? filteredMealsByCuisine
-            : filteredMealsByName
-          )?.map((recipe) => (
-            <RecipeCard
-              key={recipe.idMeal}
-              newRecipe={recipe}
-              isFavorite={isFavorite(recipe)}
-              onToggleFavorite={() => handleFavoriteToggle(recipe)}
-            />
-          ))}
+          {inputQuery !== "" &&
+          filteredMealsByCuisine.length === 0 &&
+          filteredMealsByName.length === 0 ? (
+            <p>No recipes found ...</p>
+          ) : (
+            (inputQuery === ""
+              ? basicMeals
+              : filteredMealsByCuisine.length > 0
+              ? filteredMealsByCuisine
+              : filteredMealsByName
+            )?.map((recipe) => (
+              <RecipeCard
+                key={recipe.idMeal}
+                newRecipe={recipe}
+                isFavorite={isFavorite(recipe)}
+                onToggleFavorite={() => handleFavoriteToggle(recipe)}
+              />
+            ))
+          )}
         </div>
       </div>
     </>
