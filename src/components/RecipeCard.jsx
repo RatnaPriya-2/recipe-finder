@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import WatchVideo from "./WatchVideo";
 import { useNavigate } from "react-router-dom";
 

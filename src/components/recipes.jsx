@@ -9,6 +9,7 @@ const Recipes = () => {
   const [allMeals, setAllMeals] = useState([]);
   const [basicMeals, setBasicMeals] = useState([]);
 
+  
   useEffect(() => {
     const getInitialData = async () => {
       let url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputQuery}`;
@@ -17,6 +18,7 @@ const Recipes = () => {
       setBasicMeals(data.meals);
     };
     getInitialData();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
