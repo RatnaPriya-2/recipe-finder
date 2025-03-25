@@ -9,13 +9,18 @@ const Recipes = () => {
   const [allMeals, setAllMeals] = useState([]);
   const [basicMeals, setBasicMeals] = useState([]);
 
-  
+  const [error, setError] = useState("");
+
   useEffect(() => {
     const getInitialData = async () => {
-      let url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputQuery}`;
-      let response = await fetch(url);
-      let data = await response.json();
-      setBasicMeals(data.meals);
+      try {
+        let url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputQuery}`;
+        let response = await fetch(url);
+        let data = await response.json();
+        setBasicMeals(data.meals);
+      } catch (error) {
+        setError(error.message);
+      }
     };
     getInitialData();
     // eslint-disable-next-line
@@ -65,26 +70,40 @@ const Recipes = () => {
       meal.strArea.toLowerCase().includes(inputQuery.trim().toLowerCase())
     ) || [];
 
+  console.log(error);
+
   return (
     <>
       <div className="recipes-main-body">
         <div className="search-cluster">
           <p>Search recipes by name, ingredient, or cuisine...</p>
           <div className="search-block">
+            <i className="fa-solid fa-magnifying-glass"></i>
             <input
               type="text"
               value={inputQuery}
               onChange={(e) => setInputQuery(e.target.value)}
               placeholder="Search for recipes..."
             />
-            <i className="fa-solid fa-magnifying-glass"></i>
           </div>
         </div>
         <div className="recipe-container">
-          {inputQuery !== "" &&
-          filteredMealsByCuisine.length === 0 &&
-          filteredMealsByName.length === 0 ? (
+          {error ? (
+            <p>{error}</p>
+          ) : inputQuery !== "" &&
+            filteredMealsByCuisine.length === 0 &&
+            filteredMealsByName.length === 0 ? (
             <p>No recipes found ...</p>
+          ) : basicMeals.length === 0 ? (
+            <div
+              style={{
+                fontSize: "22px",
+                fontWeight: "600",
+                textAlign: "center",
+              }}
+            >
+              Loading...
+            </div>
           ) : (
             (inputQuery === ""
               ? basicMeals

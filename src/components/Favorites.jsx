@@ -17,19 +17,22 @@ const Favorites = () => {
 
   return (
     <>
-      <div className="favorites-main-body">
-        {favoriteRecipes.length > 0 ? (
-          favoriteRecipes.map((recipe) => (
-            <RecipeCard
-              key={recipe.idMeal}
-              newRecipe={recipe}
-              isFavorite={true}
-              onToggleFavorite={() => handleFavoriteToggle(recipe)}
-            />
-          ))
-        ) : (
-          <p>No favorite recipes found</p>
-        )}
+      <div className="favorites-body">
+        <p>Your favorite Recipes</p>
+        <div className="favorites-main-body">
+          {favoriteRecipes.length > 0 ? (
+            favoriteRecipes.map((recipe) => (
+              <RecipeCard
+                key={recipe.idMeal}
+                newRecipe={recipe}
+                isFavorite={true}
+                onToggleFavorite={() => handleFavoriteToggle(recipe)}
+              />
+            ))
+          ) : (
+            <p>No favorite recipes found</p>
+          )}
+        </div>
       </div>
     </>
   );

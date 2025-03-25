@@ -20,10 +20,11 @@
 }
 
 .main-container {
-  min-width: 100vw;
+  min-width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: auto;
 }
 
 .flex {
@@ -171,14 +172,15 @@ input::placeholder {
 }
 
 .search-block i {
-  font-size: 22px;
+  font-size: 18px;
   width: 50px;
+  background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   /* margin-right: 5px; */
-  color: white;
-  background-color: #7ac0be;
+  color: #555;
+  /* background-color: #7ac0be; */
 }
 
 .recipe-container,
@@ -186,20 +188,32 @@ input::placeholder {
   background-color: #f1f1f1;
   margin-top: 45px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: left;
   flex-wrap: wrap;
-  gap: 32px;
+  gap: 25px;
+  min-height: 100vh;
+}
+
+.favorites-body {
+  background-color: #f1f1f1;
+  padding: 40px 80px;
+}
+
+.favorites-body > p {
+  font-size: 22px;
+  font-weight: 500;
+  color: #e83786;
+  margin-bottom: 30px;
 }
 
 .favorites-main-body {
   margin-top: 0px;
-  padding: 85px 80px;
+  /* padding: 60px 80px; */
 }
 
 .card-body {
-  width: 320px;
-
+  width: 290px;
   height: 430px;
   display: flex;
   flex-direction: column;
@@ -436,10 +450,12 @@ input::placeholder {
     padding: 10px 0px;
   }
 
-  .recipes-main-body,
-  .favorites-main-body {
+  .recipes-main-body {
     padding: 20px 30px;
     justify-content: center;
+  }
+  .favorites-body {
+    padding: 40px;
   }
 
   .recipe-container {
@@ -459,7 +475,7 @@ input::placeholder {
     align-items: center;
   }
   .search-block {
-    width: 95%;
+    width: 100%;
   }
 
   .recipe-details-container {
@@ -476,7 +492,7 @@ input::placeholder {
 /* Medium devices (tablets, 768px and below) */
 
 /* Extra large devices (large desktops, 1200px and below) */
-@media (min-width: 577px) and (max-width: 1200px) {
+@media (min-width: 577px) and (max-width: 1281px) {
   .nav-bar {
     padding: 10px 30px;
   }
@@ -507,6 +523,7 @@ input::placeholder {
   .favorites-main-body {
     padding: 20px 30px;
     justify-content: center;
+    align-items: flex-start;
   }
 
   .recipe-container {
