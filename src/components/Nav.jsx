@@ -5,7 +5,7 @@ const Nav = () => {
   return (
     <>
       <div className="nav-bar flex">
-        <p className="title">Recipe-Finder</p>
+        <p className="title">CookBook Pro</p>
         <div className="nav-cluster">
           <Link to="/">
             <span>Home</span>
